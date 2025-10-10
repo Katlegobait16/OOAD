@@ -16,7 +16,7 @@ public class CompanyCustomer extends Customer
         return companyName;
     }
 
-    public String registrationNum(){
+    public String getRegistrationNum(){
         return registrationNum;
     }
 

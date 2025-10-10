@@ -1,9 +1,14 @@
 public class ChequeAccount extends Account implements Withdraw{
     private String companyName;
+    private String companyAddress;
 
-    public ChequeAccount(String accountNumber, String branch,String customer, String companyName, Customer owner) {
+    public ChequeAccount(String accountNumber, String branch, IndividualCustomer owner) {
         super(accountNumber,branch, owner);
-        this.companyName = companyName;
+        if(!owner.isEmployed()){
+            System.out.println("Only employed individuals can open a Cheque Account");
+        }
+        this.companyName = owner.getCompanyName();
+        this.companyAddress = owner.getCompanyAddress();
     }
 
     @Override
@@ -18,5 +23,9 @@ public class ChequeAccount extends Account implements Withdraw{
 
     public String getCompanyName(){
         return companyName;
+    }
+
+    public String getCompanyAddress(){
+        return companyAddress;
     }
 }

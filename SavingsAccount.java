@@ -3,8 +3,6 @@ public class SavingsAccount extends Account implements InterestBearing{
         super(accountNumber, branch, owner);
     }
 
-    
-
     @Override
     public void payInterest(){
         double interest = balance * 0.02;
