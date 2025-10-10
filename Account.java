@@ -1,11 +1,11 @@
 abstract class Account{
-    protected String accountName;
+    protected long accountNumber;
     protected double balance;
     protected String branch;
     protected Customer owner;
 
-    public Account(String accountName, String branch, Customer owner){
-        this.accountName = accountName;
+    public Account(long accountNumber, String branch, Customer owner){
+        this.accountNumber = accountNumber;
         this.balance = 0.0;
         this.branch = branch;
         this.owner = owner;
@@ -23,8 +23,8 @@ abstract class Account{
         return balance;
     }
 
-    public String getAccountName(){
-        return accountName;
+    public long getAccountNumber(){
+        return accountNumber;
     }
 
     public String getBranch(){

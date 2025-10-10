@@ -2,7 +2,7 @@ public class InvestmentAccount extends Account implements InterestBearing, Withd
 {
     private double minimumBlance = 500.0;
 
-    public InvestmentAccount(String accountNumber, String branch, Customer owner){
+    public InvestmentAccount(long accountNumber, String branch, Customer owner){
         super(accountNumber, branch, owner);
     }
 

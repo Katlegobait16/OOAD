@@ -4,8 +4,8 @@ public class Main
             IndividualCustomer cust = new IndividualCustomer("C001", "Gaborone", "Katlego", "Baitirile", "12345678");
             IndividualCustomer cust2 = new IndividualCustomer("C002", "Francistown", "Kabo", "Baitirile", "90123458", "Zenith Tuning", "Plot 125, Airport Road");
 
-            SavingsAccount acc = new SavingsAccount("A200", "Main Branch", cust);
-            ChequeAccount acc2 = new ChequeAccount("A300", "Main Branch", cust2);
+            SavingsAccount acc = new SavingsAccount(1234567890123L, "Main Branch", cust);
+            ChequeAccount acc2 = new ChequeAccount(987654321098L, "Main Branch", cust2);
 
             //savings account
             acc.deposit(2000);

@@ -2,7 +2,7 @@ public class ChequeAccount extends Account implements Withdraw{
     private String companyName;
     private String companyAddress;
 
-    public ChequeAccount(String accountNumber, String branch, IndividualCustomer owner) {
+    public ChequeAccount(long accountNumber, String branch, IndividualCustomer owner) {
         super(accountNumber,branch, owner);
         if(!owner.isEmployed()){
             System.out.println("Only employed individuals can open a Cheque Account");

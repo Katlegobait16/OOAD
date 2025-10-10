@@ -1,5 +1,5 @@
 public class SavingsAccount extends Account implements InterestBearing{
-    public SavingsAccount(String accountNumber, String branch, Customer owner){
+    public SavingsAccount(long accountNumber, String branch, Customer owner){
         super(accountNumber, branch, owner);
     }
 
