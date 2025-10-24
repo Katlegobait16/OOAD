@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
+   <center>
+      <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #e8f4f8;">
+         <padding>
+            <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+         </padding>
+         
+         <!-- Header -->
+         <VBox alignment="CENTER" spacing="5.0">
+            <Label text="Banking System" textFill="DARKBLUE">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+         </VBox>
+         
+         <!-- Login Form -->
+         <VBox alignment="CENTER" spacing="15.0" style="-fx-background-color: white; -fx-border-color: #cccccc; -fx-padding: 25; -fx-border-radius: 8;" maxWidth="300.0">
+            <Label text="Login" style="-fx-font-weight: bold; -fx-font-size: 18;" />
+            
+            <Label text="Username:" />
+            <TextField fx:id="usernameField" promptText="Enter username" />
+            
+            <Label text="Password:" />
+            <PasswordField fx:id="passwordField" promptText="Enter password" />
+            
+            <Button fx:id="loginButton" text="Login" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" />
+            
+            <Label fx:id="statusLabel" wrapText="true" maxWidth="250.0" />
+         </VBox>
+      </VBox>
+   </center>
+</BorderPane>

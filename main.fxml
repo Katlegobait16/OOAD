@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<TabPane fx:id="tabPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController" tabClosingPolicy="UNAVAILABLE">
+   
+   <!-- Customers Tab -->
+   <Tab text="Customers">
+      <ScrollPane fitToWidth="true">
+         <VBox spacing="15.0" style="-fx-padding: 20; -fx-background-color: white;">
+            <Label text="Customer Management" style="-fx-font-weight: bold; -fx-font-size: 18;" />
+            
+            <!-- Customer Type -->
+            <VBox spacing="10.0">
+               <Label text="Customer Type:" style="-fx-font-weight: bold;" />
+               <HBox spacing="20.0">
+                  <RadioButton fx:id="individualRadio" text="Individual Customer" selected="true">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="customerTypeGroup" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="companyRadio" text="Company Customer" toggleGroup="$customerTypeGroup" />
+               </HBox>
+            </VBox>
+            
+            <StackPane>
+               <!-- Individual Customer Form -->
+               <VBox fx:id="individualForm" spacing="10.0" style="-fx-border-color: #dddddd; -fx-border-width: 1; -fx-border-radius: 5; -fx-padding: 15; -fx-background-color: #f8fdff;">
+                  <Label text="Individual Customer Information:" style="-fx-font-weight: bold; -fx-font-size: 14;" />
+                  
+                  <HBox spacing="10.0">
+                     <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                        <Label text="First Name:" />
+                        <TextField fx:id="firstNameField" promptText="First Name" />
+                     </VBox>
+                     <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                        <Label text="Last Name:" />
+                        <TextField fx:id="lastNameField" promptText="Last Name" />
+                     </VBox>
+                  </HBox>
+                  
+                  <VBox spacing="5.0">
+                     <Label text="Address:" />
+                     <TextField fx:id="addressField" promptText="Address" />
+                  </VBox>
+                  
+                  <VBox spacing="5.0">
+                     <Label text="ID Number:" />
+                     <TextField fx:id="idNumberField" promptText="ID Number" />
+                  </VBox>
+                  
+                  <CheckBox fx:id="employedCheckbox" text="Employed?" />
+                  
+                  <VBox fx:id="employmentInfo" spacing="5.0" visible="false">
+                     <Label text="Employment Information:" style="-fx-font-weight: bold;" />
+                     <TextField fx:id="companyNameField" promptText="Company Name" />
+                     <TextField fx:id="companyAddressField" promptText="Company Address" />
+                  </VBox>
+                  
+                  <Button fx:id="addIndividualCustomerButton" text="Add Customer" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 8 16;" />
+               </VBox>
+               
+               <!-- Company Customer Form -->
+               <VBox fx:id="companyForm" spacing="10.0" style="-fx-border-color: #dddddd; -fx-border-width: 1; -fx-border-radius: 5; -fx-padding: 15; -fx-background-color: #fff8f8;" visible="false">
+                  <Label text="Company Customer Information:" style="-fx-font-weight: bold; -fx-font-size: 14;" />
+                  
+                  <VBox spacing="5.0">
+                     <Label text="Company Name:" />
+                     <TextField fx:id="compNameField" promptText="Company Name" />
+                  </VBox>
+                  
+                  <VBox spacing="5.0">
+                     <Label text="Registration Number:" />
+                     <TextField fx:id="regNumberField" promptText="Registration Number" />
+                  </VBox>
+                  
+                  <VBox spacing="5.0">
+                     <Label text="Contact Person:" />
+                     <TextField fx:id="contactPersonField" promptText="Contact Person" />
+                  </VBox>
+                  
+                  <VBox spacing="5.0">
+                     <Label text="Company Address:" />
+                     <TextField fx:id="compAddressField" promptText="Company Address" />
+                  </VBox>
+                  
+                  <Button fx:id="addCompanyCustomerButton" text="Add Customer" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 8 16;" />
+               </VBox>
+            </StackPane>
+            
+            <Separator />
+            
+            <!-- Current Customers Section -->
+            <VBox spacing="10.0">
+               <Label text="Current Customers" style="-fx-font-weight: bold; -fx-font-size: 16; -fx-text-fill: #2c3e50;" />
+               
+               <!-- Customer Statistics -->
+               <HBox spacing="20.0" alignment="CENTER_LEFT">
+                  <VBox spacing="5.0">
+                     <Label text="Total Customers:" style="-fx-font-weight: bold;" />
+                     <Label fx:id="totalCustomersLabel" text="0" style="-fx-font-weight: bold; -fx-font-size: 16; -fx-text-fill: #2196F3;" />
+                  </VBox>
+                  <VBox spacing="5.0">
+                     <Label text="Individual Customers:" style="-fx-font-weight: bold;" />
+                     <Label fx:id="individualCountLabel" text="0" style="-fx-font-size: 14; -fx-text-fill: #4CAF50;" />
+                  </VBox>
+                  <VBox spacing="5.0">
+                     <Label text="Company Customers:" style="-fx-font-weight: bold;" />
+                     <Label fx:id="companyCountLabel" text="0" style="-fx-font-size: 14; -fx-text-fill: #FF9800;" />
+                  </VBox>
+               </HBox>
+               
+               <!-- Customer List -->
+               <VBox spacing="5.0">
+                  <Label text="Customer List:" style="-fx-font-weight: bold;" />
+                  <ListView fx:id="customerListView" prefHeight="150.0" style="-fx-border-color: #bdc3c7; -fx-border-width: 1; -fx-border-radius: 3;" />
+               </VBox>
+               
+               <!-- Customer Details -->
+               <VBox spacing="5.0" style="-fx-border-color: #3498db; -fx-border-width: 1; -fx-border-radius: 5; -fx-padding: 10; -fx-background-color: #ecf0f1;">
+                  <Label text="Selected Customer Details:" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
+                  <TextArea fx:id="customerDetailsArea" prefHeight="100.0" editable="false" style="-fx-font-family: 'Monaco', 'Consolas', monospace; -fx-font-size: 12; -fx-background-color: white;" />
+               </VBox>
+            </VBox>
+         </VBox>
+      </ScrollPane>
+   </Tab>
+   
+   <Tab text="Accounts">
+      <VBox spacing="15.0" style="-fx-padding: 20; -fx-background-color: white;">
+         <Label text="Account Management" style="-fx-font-weight: bold; -fx-font-size: 18;" />
+         
+         <Label text="Select Customer:" style="-fx-font-weight: bold;" />
+         <ListView fx:id="accountCustomerList" prefHeight="150.0" />
+         
+         <Label text="Account Details:" style="-fx-font-weight: bold;" />
+         <TextArea fx:id="accountInfoArea" prefHeight="100.0" editable="false" />
+         
+         <Label text="Create Account:" style="-fx-font-weight: bold;" />
+         <HBox spacing="10.0">
+            <Button fx:id="savingsButton" text="Savings Account" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" />
+            <Button fx:id="chequeButton" text="Cheque Account" style="-fx-background-color: #FF9800; -fx-text-fill: white;" />
+            <Button fx:id="investmentButton" text="Investment Account" style="-fx-background-color: #2196F3; -fx-text-fill: white;" />
+         </HBox>
+      </VBox>
+   </Tab>
+   
+   <Tab text="Transactions">
+      <VBox spacing="15.0" style="-fx-padding: 20; -fx-background-color: white;">
+         <Label text="Transaction Management" style="-fx-font-weight: bold; -fx-font-size: 18;" />
+         
+         <Label text="Select Customer:" style="-fx-font-weight: bold;" />
+         <ListView fx:id="transCustomerList" prefHeight="120.0" />
+         
+         <Label text="Select Account:" style="-fx-font-weight: bold;" />
+         <ListView fx:id="transAccountList" prefHeight="120.0" />
+         
+         <Label text="Amount:" style="-fx-font-weight: bold;" />
+         <TextField fx:id="amountField" promptText="Enter amount" />
+         
+         <Label text="Actions:" style="-fx-font-weight: bold;" />
+         <HBox spacing="15.0">
+            <Button fx:id="depositButton" text="Deposit" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" />
+            <Button fx:id="withdrawButton" text="Withdraw" style="-fx-background-color: #F44336; -fx-text-fill: white;" />
+         </HBox>
+         
+         <Separator />
+         <Button fx:id="logoutButton" text="Logout" style="-fx-background-color: #757575; -fx-text-fill: white;" />
+      </VBox>
+   </Tab>
+</TabPane>

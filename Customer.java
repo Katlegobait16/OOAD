@@ -1,6 +1,10 @@
+import java.util.ArrayList;
+import java.util.List;
+
 abstract class Customer{
     protected String customerID;
     protected String address;
+    protected List<Account> accounts = new ArrayList<>();
 
     public Customer(String customerID, String address){
         this.customerID = customerID;
@@ -23,5 +27,13 @@ abstract class Customer{
 
     public String getAddress(){
         return address;
+    }
+    
+    public void addAccount(Account account) {
+        accounts.add(account);
+    }
+
+    public List<Account> getAccounts() {
+        return accounts;
     }
 }

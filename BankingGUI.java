@@ -1,65 +1,50 @@
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 public class BankingGUI extends Application {
-    private LoginView loginView;
-    private AccountView accountView;
     private Stage primaryStage;
 
     @Override
     public void start(Stage stage) {
         this.primaryStage = stage;
-        
-        loginView = new LoginView();
-        accountView = new AccountView();
-        
-        setupLoginEvents();
-        
-        stage.setScene(new Scene(loginView, 500, 500));
-        stage.setTitle("Banking System - Login");
-        stage.show();
+        showLoginScreen();
     }
 
-    private void setupLoginEvents() {
-        loginView.loginButton.setOnAction(e -> {
-            String username = loginView.usernameField.getText();
-            String password = loginView.passwordField.getText();
-
-            if (username.isEmpty() || password.isEmpty()) {
-                loginView.setStatus("Please enter username and password", true);
-                return;
-            }
-
-            if ("admin".equals(username) && "admin123".equals(password)) {
-                loginView.setStatus("Login successful!", false);
-                showMainApplication();
-            } else {
-                loginView.setStatus("Invalid credentials! Use: admin / admin123", true);
-            }
-        });
-    }
-
-    private void showMainApplication() {
-        // navigation
-        accountView.logoutBtn.setOnAction(e -> {
-            primaryStage.setScene(new Scene(loginView, 500, 500));
+    public void showLoginScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            Scene scene = new Scene(loader.load(), 500, 500);
+            
+            LoginController loginController = loader.getController();
+            loginController.setMainApp(this);
+            
+            primaryStage.setScene(scene);
             primaryStage.setTitle("Banking System - Login");
-            loginView.clearFields();
-        });
-
-        Scene mainScene = new Scene(accountView, 800, 600);
-        primaryStage.setScene(mainScene);
-        primaryStage.setTitle("Banking System - Main Dashboard");
+            primaryStage.show();
+            
+        } catch (Exception e) {
+            System.out.println("Error loading login screen: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+    public void showMainScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+            Scene scene = new Scene(loader.load(), 800, 600);
+            
+            MainController mainController = loader.getController();
+            mainController.setMainApp(this);
+            
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Banking System - Main");
+            
+        } catch (Exception e) {
+            System.out.println("Error loading main screen: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
