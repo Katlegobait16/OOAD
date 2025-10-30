@@ -1,0 +1,3 @@
+INDIVIDUAL,IND1,Plot 123, Block 8, Gaborone,Katlego,Baitirile,123456789,Zenith Tuning,block 8 Industrial
+INDIVIDUAL,IND2,789 Riverwalk, Maun,Neo,Mabe,19953456789,,
+COMPANY,COMP3,Plot 55, Innovation Hub, Gaborone,Kalahari Tech Solutions,BW2024001,Maria Peters

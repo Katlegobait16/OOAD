@@ -1,0 +1,5 @@
+InvestmentAccount,1000,IND1,Investment Branch,500.0
+SavingsAccount,1001,IND1,Main Branch,2000.0
+SavingsAccount,1002,COMP3,Main Branch,0.0
+SavingsAccount,1004,IND2,Main Branch,0.0
+InvestmentAccount,1005,IND2,Investment Branch,1400.0

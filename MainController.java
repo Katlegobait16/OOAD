@@ -28,15 +28,35 @@ public class MainController {
     private int customerCounter = 1;
     private long accountCounter = 1000;
 
+    // Add repository instances for file persistence
+    private CustomerRepository customerRepo = new CustomerRepository();
+    private AccountRepository accountRepo = new AccountRepository();
+    private TransactionRepository transactionRepo = new TransactionRepository();
+
     public void setMainApp(BankingGUI mainApp) {
         this.mainApp = mainApp;
     }
 
     @FXML
     private void initialize() {
+        loadData(); // Load existing data from files
         setupCustomerTab();
         setupAccountsTab();
         setupTransactionsTab();
+    }
+
+    private void loadData() {
+        customers = customerRepo.loadCustomers();
+        accounts = accountRepo.loadAccounts(customers);
+        updateAllDisplays();
+        
+        // Update counters based on loaded data
+        if (!customers.isEmpty()) {
+            customerCounter = customers.size() + 1;
+        }
+        if (!accounts.isEmpty()) {
+            accountCounter = accounts.stream().mapToLong(Account::getAccountNumber).max().orElse(1000) + 1;
+        }
     }
 
     private void setupCustomerTab() {
@@ -87,6 +107,7 @@ public class MainController {
         try {
             Customer customer = createCustomerFromForm();
             customers.add(customer);
+            customerRepo.saveCustomers(customers); // Save to file
             updateAllDisplays();
             clearCustomerFields();
             showAlert("Success", "Customer added: " + customer.getName());
@@ -148,6 +169,7 @@ public class MainController {
             
             Account account = createAccountOfType(accountType, customer);
             accounts.add(account);
+            accountRepo.saveAccounts(accounts, customers); // Save to file
             updateAllDisplays();
             showAlert("Success", accountType + " account #" + account.getAccountNumber() + " created for " + customer.getName());
         } catch (Exception e) {
@@ -219,6 +241,8 @@ public class MainController {
 
     private void processDeposit(Account account, double amount) {
         account.deposit(amount);
+        transactionRepo.saveTransaction(account.getAccountNumber(), "DEPOSIT", amount, "Deposit");
+        accountRepo.saveAccounts(accounts, customers); // Save updated accounts
         showAlert("Success", String.format("Deposited P%.2f to account #%d\nNew Balance: P%.2f", 
             amount, account.getAccountNumber(), account.getBalance()));
     }
@@ -230,6 +254,8 @@ public class MainController {
         
         Withdraw withdrawable = (Withdraw) account;
         if (withdrawable.withdraw(amount)) {
+            transactionRepo.saveTransaction(account.getAccountNumber(), "WITHDRAW", amount, "Withdrawal");
+            accountRepo.saveAccounts(accounts, customers); // Save updated accounts
             showAlert("Success", String.format("Withdrew P%.2f from account #%d\nNew Balance: P%.2f", 
                 amount, account.getAccountNumber(), account.getBalance()));
         } else {
@@ -292,6 +318,11 @@ public class MainController {
                       .append("Address: ").append(ind.getAddress()).append("\n")
                       .append("ID Number: ").append(ind.getIdNum()).append("\n")
                       .append("Employed: ").append(ind.isEmployed() ? "Yes" : "No");
+                      
+                if (ind.isEmployed()) {
+                    details.append("\nCompany: ").append(ind.getCompanyName())
+                           .append("\nCompany Address: ").append(ind.getCompanyAddress());
+                }
             } else if (customer instanceof CompanyCustomer) {
                 CompanyCustomer comp = (CompanyCustomer) customer;
                 details.append("Type: Company Customer\n")
@@ -379,7 +410,7 @@ public class MainController {
             for (Account account : accounts) {
                 if (account.getOwner().equals(customer)) {
                     transAccountList.getItems().add(
-                        account.getAccountNumber() + " - " + account.getClass().getSimpleName() + " - P" + account.getBalance()
+                        account.getAccountNumber() + " - " + account.getClass().getSimpleName() + " - P" + String.format("%.2f", account.getBalance())
                     );
                 }
             }
